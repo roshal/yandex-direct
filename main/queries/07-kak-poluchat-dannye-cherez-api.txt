@@ -1,0 +1,102 @@
+https://api-sandbox.direct.yandex.com/json/v5/campaigns
+{
+	'method': 'get',
+	'params': {
+		'SelectionCriteria': {
+		},
+		'FieldNames': [
+			'Id',
+			'Name',
+		],
+	},
+}
+https://api-sandbox.direct.yandex.com/json/v5/campaigns
+{
+	'method': 'get',
+	'params': {
+		'SelectionCriteria': {
+			'Types': [
+				'TEXT_CAMPAIGN',
+			],
+		},
+		'FieldNames': [
+			'Id',
+			'Name',
+		],
+		'TextCampaignFieldNames': [
+			'BiddingStrategy',
+		],
+	},
+}
+https://api-sandbox.direct.yandex.com/json/v5/adgroups
+{
+	'method': 'get',
+	'params': {
+		'SelectionCriteria': {
+			'CampaignIds': [
+				ИДЕНТИФИКАТОР_КАМПАНИИ,
+			],
+		},
+		'FieldNames': [
+			'Id',
+			'Name',
+			'Status',
+			'Type',
+		],
+	},
+}
+https://api-sandbox.direct.yandex.com/json/v5/ads
+{
+	'method': 'get',
+	'params': {
+		'SelectionCriteria': {
+			'AdGroupIds': [
+				ИДЕНТИФИКАТОР_ГРУППЫ,
+			],
+		},
+		'FieldNames': [
+			'Id',
+			'State',
+			'Status',
+			'Type',
+		],
+	},
+}
+https://api-sandbox.direct.yandex.com/json/v5/ads
+{
+	'method': 'get',
+	'params': {
+		'SelectionCriteria': {
+			'Ids': [
+				1381459,
+			],
+		},
+		'FieldNames': [
+			'Id',
+		],
+		'TextAdFieldNames': [
+			'Text',
+			'Title',
+			'Href',
+			'VCardId',
+		],
+	},
+}
+https://api-sandbox.direct.yandex.com/json/v5/keywords
+{
+	'method': 'get',
+	'params': {
+		'SelectionCriteria': {
+			'AdGroupIds': [
+				1296506,
+			],
+		},
+		'FieldNames': [
+			'Id',
+			'Keyword',
+			'Bid',
+			'State',
+			'Status',
+		],
+	},
+}

@@ -1,0 +1,27 @@
+https://api.direct.yandex.com/json/v5/changes
+{
+	'method': 'checkDictionaries',
+	'params': {
+	},
+}
+https://api.direct.yandex.com/json/v5/changes
+{
+	'method': 'checkCampaigns',
+	'params': {
+		'Timestamp': '2016-06-03T12:48:27Z',
+	},
+}
+https://api.direct.yandex.com/json/v5/changes
+{
+	'method': 'check',
+	'params': {
+		'CampaignIds': [
+			136200,
+		],
+		'FieldNames': [
+			'AdGroupIds',
+			'AdIds',
+		],
+		'Timestamp': '2016-06-03T12:48:27Z',
+	},
+}

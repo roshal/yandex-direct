@@ -1,0 +1,135 @@
+if __name__ == '__main__':
+	#
+	from scipy.interpolate import interp1d
+	from scipy.interpolate import PchipInterpolator
+	def best(items):
+		sequence = [(0, 0)]
+		for item in items:
+			sequence.append((item['Probability'], item['Price']))
+		sequence.sort()
+		offset = 1
+		spline = interp1d(*zip(*sequence))(range(offset, 100 + offset))
+		return int(sorted(enumerate(spline, offset), **{
+			'key': lambda item: item[1] / item[0],
+		})[0][1])
+	#
+	from direct.api import api
+	#
+	import os
+	api = api(**{
+		'token': os.environ.get('token'),
+		'language': 'ru',
+	})
+	del os
+	#
+	services = {
+		'Bids': api.service('Bids'),
+		'Campaigns': api.service('Campaigns'),
+	}
+	methods = {
+		'Campaigns': {
+			'get': services['Campaigns'].method('get'),
+		},
+		'Bids': {
+			'get': services['Bids'].method('get'),
+			'set': services['Bids'].method('set'),
+		},
+	}
+	items = []
+	#
+	json = {}
+	offest = 0
+	while True:
+		structure = {
+			'SelectionCriteria': {
+				'Types': [
+					'TEXT_CAMPAIGN',
+				],
+				'States': [
+					'ON',
+					'OFF',
+				],
+			},
+			'FieldNames': [
+				'Id',
+			],
+			'TextCampaignFieldNames': [
+				'BiddingStrategy',
+			],
+		}
+		if offest:
+			structure['Page'] = {
+				'Offset': offest,
+			}
+		request = methods['Campaigns']['get'].request(structure)
+		response = request.send()
+		json = response.json()
+		for item in json['result']['Campaigns']:
+			if item['TextCampaign']['BiddingStrategy']['Network']['BiddingStrategyType'] != 'SERVING_OFF':
+				items.append(item['Id'])
+		offest = json.get('LimitedBy')
+		if not offest:
+			break
+	del json
+	del offest
+	#
+	slices = tuple(items[slice(index, index + 10)] for index in range(0, len(items), 10))
+	old = []
+	for items in slices:
+		request = methods['Bids']['get'].request({
+			'SelectionCriteria': {
+				'CampaignIds': items,
+			},
+			'FieldNames': [
+				'KeywordId',
+				'AdGroupId',
+				'CampaignId',
+				'ContextBid',
+			],
+		})
+		old.append(request.send().json()['result']['Bids'])
+	for items in slices:
+		items = methods['Bids']['get'].request({
+			'SelectionCriteria': {
+				'CampaignIds': items,
+			},
+			'FieldNames': [
+				'KeywordId',
+				'ContextCoverage',
+			],
+		}).send().json()['result']['Bids']
+		items = [{
+				'KeywordId': item['KeywordId'],
+				#	'ContextBid': best(item['ContextCoverage']['Items']) if item['ContextCoverage']['Items'] else 300000,
+				'ContextBid': item['ContextCoverage']['Items'][-1]['Price'] / 2 if item['ContextCoverage']['Items'] else 300000,
+			} for item in items if item['ContextCoverage']]
+		response = methods['Bids']['set'].request({
+			'Bids': [{
+				'KeywordId': item['KeywordId'],
+				'ContextBid': int(item['ContextBid']),
+			} for item in items],
+		}).send()
+	new = []
+	for items in slices:
+		request = methods['Bids']['get'].request({
+			'SelectionCriteria': {
+				'CampaignIds': items,
+			},
+			'FieldNames': [
+				'KeywordId',
+				'AdGroupId',
+				'CampaignId',
+				'ContextBid',
+			],
+		})
+		new.append(request.send().json()['result']['Bids'])
+	import operator
+	for item in zip(*(item for items in zip(old, new) for item in items)):
+		mapping = {key: (item[0][key], item[1][key]) for key in set(item[0]) & set(item[1]) if item[0][key] != item[1][key]}
+		if mapping:
+			print('-', *(str(item[0][string]).rjust(12) for string in ('CampaignId', 'AdGroupId', 'KeywordId')))
+			for key, value in mapping.items():
+				print(' ', key, *(str(item).rjust(12) for item in value), operator.truediv(*reversed(value)))
+	del operator
+	del old
+	del new

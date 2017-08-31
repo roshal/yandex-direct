@@ -1,0 +1,75 @@
+https://api-sandbox.direct.yandex.com/json/v5/campaigns
+{
+	'method': 'update',
+	'params': {
+		'Campaigns': [
+			{
+				'Id': ИДЕНТИФИКАТОР_КАМПАНИИ,
+				'TextCampaign': {
+					'BiddingStrategy': {
+						'Search': {
+							'BiddingStrategyType': 'IMPRESSIONS_BELOW_SEARCH',
+						},
+					},
+				},
+			},
+		],
+	},
+}
+https://api-sandbox.direct.yandex.com/json/v5/adgroups
+{
+	'method': 'add',
+	'params': {
+		'AdGroups': [
+			{
+				'Name': 'Новая группа',
+				'CampaignId': ИДЕНТИФИКАТОР_КАМПАНИИ,
+				'RegionIds': [
+					213,
+				],
+			},
+		],
+	},
+}
+https://api-sandbox.direct.yandex.com/json/v5/ads
+{
+	'method': 'add',
+	'params': {
+		'Ads': [
+			{
+				'AdGroupId': 'ИДЕНТИФИКАТОР_ГРУППЫ',
+				'TextAd': {
+					'Title': 'Заголовок объявления',
+					'Text': 'Текст объявления',
+					'Mobile': 'NO',
+					'Href': 'http://example.com',
+				},
+			},
+		],
+	},
+}
+https://api-sandbox.direct.yandex.com/json/v5/keywords
+{
+	'method': 'add',
+	'params': {
+		'Keywords': [
+			{
+				'Keyword': 'Новая фраза',
+				'AdGroupId': ИДЕНТИФИКАТОР_ГРУППЫ,
+				'Bid': 300000,
+			},
+		],
+	},
+}
+https://api-sandbox.direct.yandex.com/json/v5/bids
+{
+	'method': 'set',
+	'params': {
+		'Bids': [
+			{
+				'KeywordId': ИДЕНТИФИКАТОР_ФРАЗЫ,
+				'Bid': 400000,
+			},
+		],
+	},
+}

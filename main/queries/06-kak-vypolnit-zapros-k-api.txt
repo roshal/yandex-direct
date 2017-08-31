@@ -1,0 +1,12 @@
+https://api-sandbox.direct.yandex.com/json/v5/campaigns
+{
+	'method': 'get',
+	'params': {
+		'SelectionCriteria': {
+		},
+		'FieldNames': [
+			'Id',
+			'Name',
+		],
+	},
+}
