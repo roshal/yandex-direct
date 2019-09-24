@@ -6,11 +6,11 @@ from time       import gmtime   as p__gmtime
 from time       import sleep    as p__sleep
 from time       import strftime as p__strftime
 
-from direct.api import api      as p__api
+from direct.api import api as m__api
 
 
 def worker():
-	api = p__api(**{
+	api = m__api(**{
 		'token': p__environ.get('token'),
 		'language': 'ru',
 	})
@@ -62,8 +62,6 @@ def worker():
 			offest = json.get('LimitedBy')
 			if not offest:
 				break
-		##	del json
-		##	del offest
 		slices = tuple(items[slice(index, index + 10)] for index in range(0, len(items), 10))
 		old = []
 		for items in slices:
@@ -86,7 +84,8 @@ def worker():
 					##	'MaxBid': 40 * 10 ** 6,
 					##	'Position': 'FOOTERFIRST' if 4 < p__gmtime().tm_hour < 17 else 'FOOTERBLOCK',
 					##	'Position': 'P12',
-					'Position': 'PREMIUMBLOCK' if 4 < p__gmtime().tm_hour < 17 else 'FOOTERFIRST',
+					##	'Position': 'PREMIUMBLOCK' if 4 < p__gmtime().tm_hour < 17 else 'FOOTERFIRST',
+					'Position': 'PREMIUMBLOCK',
 					'Scope': [
 						'SEARCH',
 					],
@@ -115,9 +114,6 @@ def worker():
 				print('-', *(str(item[0][string]).rjust(12) for string in ('CampaignId', 'AdGroupId', 'KeywordId')))
 				for key, value in mapping.items():
 					print(' ', key, *(str(item).rjust(12) for item in value), p__truediv(*reversed(value)))
-		##	del p__truediv
-		##	del old
-		##	del new
 		interval = p__randint(256, 768)
 		datetime = p__strftime('%y-%m-%d %H:%M:%S')
 		print('close', datetime, interval)
