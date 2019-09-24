@@ -124,4 +124,6 @@ def worker():
 
 
 if __name__ == '__main__':
+	datetime = p__strftime('%y-%m-%d %H:%M:%S')
+	print('start', datetime)
 	worker()
