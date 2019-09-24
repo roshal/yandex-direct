@@ -1,1 +1,1 @@
-worker: python main/worker.py
+worker: python source/worker.py
