@@ -1,2 +1,12 @@
-/.env
-__pycache__/
+
+/*
+
+!/docs/
+!/main/
+
+!/.editorconfig
+!/.env.sample
+!/.gitignore
+
+!/requirements.txt
+!/runtime.txt

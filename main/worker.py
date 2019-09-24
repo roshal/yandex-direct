@@ -1,21 +1,22 @@
-def run():
-	from direct.api import api
-	from operator import truediv
-	from os import environ
-	from random import randint
-	from time import gmtime
-	from time import sleep
-	from time import strftime
-	api = api(**{
-		'token': environ.get('token'),
+
+from direct.api import p__api
+from operator import p__truediv
+from os import p__environ
+from random import p__randint
+from time import p__gmtime
+from time import p__sleep
+from time import p__strftime
+
+
+def worker():
+	api = p__api(**{
+		'token': p__environ.get('token'),
 		'language': 'ru',
 	})
-	del environ
 	services = {
 		'Bids': api.service('Bids'),
 		'Campaigns': api.service('Campaigns'),
 	}
-	del api
 	methods = {
 		'Campaigns': {
 			'get': services['Campaigns'].method('get'),
@@ -60,8 +61,8 @@ def run():
 			offest = json.get('LimitedBy')
 			if not offest:
 				break
-		#	del json
-		#	del offest
+		##	del json
+		##	del offest
 		slices = tuple(items[slice(index, index + 10)] for index in range(0, len(items), 10))
 		old = []
 		for items in slices:
@@ -82,9 +83,9 @@ def run():
 				'Bids': [{
 					'CampaignId': item,
 					'MaxBid': 40 * 10 ** 6,
-					#	'Position': 'FOOTERFIRST' if 4 < gmtime().tm_hour < 17 else 'FOOTERBLOCK',
-					#	'Position': 'P12',
-					'Position': 'PREMIUMBLOCK' if 4 < gmtime().tm_hour < 17 else 'FOOTERFIRST',
+					##	'Position': 'FOOTERFIRST' if 4 < p__gmtime().tm_hour < 17 else 'FOOTERBLOCK',
+					##	'Position': 'P12',
+					'Position': 'PREMIUMBLOCK' if 4 < p__gmtime().tm_hour < 17 else 'FOOTERFIRST',
 					'Scope': [
 						'SEARCH',
 					],
@@ -112,12 +113,15 @@ def run():
 			if mapping:
 				print('-', *(str(item[0][string]).rjust(12) for string in ('CampaignId', 'AdGroupId', 'KeywordId')))
 				for key, value in mapping.items():
-					print(' ', key, *(str(item).rjust(12) for item in value), truediv(*reversed(value)))
-		#	del truediv
-		#	del old
-		#	del new
-		interval = randint(256, 768)
-		print(strftime('%y-%m-%d %H:%M:%S'), interval)
-		sleep(interval)
+					print(' ', key, *(str(item).rjust(12) for item in value), p__truediv(*reversed(value)))
+		##	del p__truediv
+		##	del old
+		##	del new
+		interval = p__randint(256, 768)
+		datetime = p__strftime('%y-%m-%d %H:%M:%S')
+		print(datetime, interval)
+		p__sleep(interval)
+
+
 if __name__ == '__main__':
-	run()
+	worker()
