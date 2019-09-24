@@ -1,4 +1,7 @@
+
 from .method import method
+
+
 class service():
 	def __init__(self, *, service, token, language=None):
 		self.service = service
@@ -11,6 +14,8 @@ class service():
 			'token': self.token,
 			'language': self.language,
 		})
+
+
 if __name__ == '__main__':
 	import os
 	service = service(**{

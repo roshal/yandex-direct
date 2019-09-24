@@ -1,4 +1,7 @@
+
 from .request import request
+
+
 class method():
 	def __init__(self, *, method, service, token, language=None):
 		self.method = method
@@ -13,6 +16,8 @@ class method():
 			'token': self.token,
 			'language': self.language,
 		})
+
+
 if __name__ == '__main__':
 	import os
 	service = method(**{

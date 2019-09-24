@@ -1,6 +1,9 @@
+
 import json
 import os
 import requests
+
+
 class request():
 	def __init__(self, *, url, language, token):
 		self.url = url
@@ -44,6 +47,8 @@ class request():
 		result = self.get()
 		print(json.dumps(dict(result.headers), sort_keys=True, indent=2))
 		print(json.dumps(result.json(), ensure_ascii=False, sort_keys=True, indent=2))
+
+
 if __name__ == '__main__':
 	request = request(**{
 		'token': os.environ.get('token'),

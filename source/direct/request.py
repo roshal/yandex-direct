@@ -1,6 +1,10 @@
-from .response import response
+
 import json
 import requests
+
+from .response import response
+
+
 class request():
 	def __init__(self, *, data, method, service, token, language=None):
 		self.url = 'https://api.direct.yandex.com/json/v5/' + service.lower()
@@ -28,6 +32,8 @@ class request():
 			}).encode(),
 		})
 		return response(data)
+
+
 if __name__ == '__main__':
 	import os
 	request = request(**{

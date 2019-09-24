@@ -83,7 +83,7 @@ def worker():
 			request = methods['Bids']['setAuto'].request({
 				'Bids': [{
 					'CampaignId': item,
-					'MaxBid': 40 * 10 ** 6,
+					##	'MaxBid': 40 * 10 ** 6,
 					##	'Position': 'FOOTERFIRST' if 4 < p__gmtime().tm_hour < 17 else 'FOOTERBLOCK',
 					##	'Position': 'P12',
 					'Position': 'PREMIUMBLOCK' if 4 < p__gmtime().tm_hour < 17 else 'FOOTERFIRST',
