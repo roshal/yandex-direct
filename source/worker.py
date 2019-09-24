@@ -1,11 +1,12 @@
 
-from direct.api import p__api
-from operator import p__truediv
-from os import p__environ
-from random import p__randint
-from time import p__gmtime
-from time import p__sleep
-from time import p__strftime
+from operator   import truediv  as p__truediv
+from os         import environ  as p__environ
+from random     import randint  as p__randint
+from time       import gmtime   as p__gmtime
+from time       import sleep    as p__sleep
+from time       import strftime as p__strftime
+
+from direct.api import api      as p__api
 
 
 def worker():
@@ -119,7 +120,7 @@ def worker():
 		##	del new
 		interval = p__randint(256, 768)
 		datetime = p__strftime('%y-%m-%d %H:%M:%S')
-		print(datetime, interval)
+		print('close', datetime, interval)
 		p__sleep(interval)
 
 

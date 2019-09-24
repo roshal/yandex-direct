@@ -1,6 +1,8 @@
 
 /*
 
+__pycache__/
+
 !/docs/
 !/source/
 
@@ -8,5 +10,7 @@
 !/.env.sample
 !/.gitignore
 
-!/requirements.txt
 !/Procfile
+
+!/requirements.txt
+!/runtime.txt
